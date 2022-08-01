@@ -12,10 +12,13 @@ public class EnemyControl : MonoBehaviour
     public float speed = 2.5f;
     public float distanceTraveled = 0;
     public bool isTargeted = false;
+    AudioSource audioSource;
+    public AudioClip reachEndAudio;
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        audioSource = Camera.main.GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -31,6 +34,7 @@ public class EnemyControl : MonoBehaviour
             {
                 source.Release(gameObject);
                 gameManager.UpdateLives(-1);
+                audioSource.PlayOneShot(reachEndAudio);
             }
         }
     }

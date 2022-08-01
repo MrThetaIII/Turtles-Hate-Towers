@@ -9,10 +9,14 @@ public class Forward : MonoBehaviour
     public GameObject target;
     public GameManager gameManager;
     public ObjectPool<GameObject> source;
+    AudioSource audioSource;
+    public AudioClip killedAudio;
+    public ParticleSystem blueBoom;
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        audioSource = Camera.main.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,9 +41,11 @@ public class Forward : MonoBehaviour
         if (other.gameObject == target)
         {
             source.Release(gameObject);
+            Instantiate(blueBoom, target.transform.position, target.transform.rotation);
             target.GetComponent<EnemyControl>().source.Release(other.gameObject);
             gameManager.UpdateMoney(10);
             gameManager.UpdateScore(1);
+            audioSource.PlayOneShot(killedAudio);
         }
     }
 }

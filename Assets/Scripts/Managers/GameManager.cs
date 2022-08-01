@@ -9,11 +9,14 @@ public class GameManager : MonoBehaviour
     public Button addSpeed, addFrequency, addRange, sellTower;
     public TextMeshProUGUI speedCost, rangeCost, frequincyCost, towerType, livesText, waveText, moneyText, noteficationArea, gameOverText;
     public Slider speedSlider, frequencySlider, rangeSlider, waveTimer;
-    public GameObject infoPanel, towerBase, gameOverScreen;
+    public GameObject infoPanel, towerBase, gameOverScreen, tutorialObject;
 
     public Projectile targetTower;
     DataManager dataManager = null;
     SpawnManager SpawnManager;
+
+    AudioSource audioSource;
+    public AudioClip gameOverAudio;
 
     public int lives = 30;
     public int money = 400;
@@ -60,6 +63,7 @@ public class GameManager : MonoBehaviour
                     break;
             }
         }
+        audioSource = Camera.main.GetComponent<AudioSource>();
         SpawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         addSpeed.onClick.AddListener(AddSpeed);
         addRange.onClick.AddListener(AddRange);
@@ -73,6 +77,7 @@ public class GameManager : MonoBehaviour
         UpdateWave(0);
         waveTimer.maxValue = waveTime;
         StartCoroutine(WaveTimer());
+        StartCoroutine(startTutorial());
     }
 
 
@@ -254,6 +259,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator startTutorial()
+    {
+        yield return new WaitForSeconds(0.5f);
+        tutorialObject.SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+        tutorialObject.SetActive(false);
+    }
     void GameOver()
     {
         isGameActive = false;
@@ -262,6 +274,7 @@ public class GameManager : MonoBehaviour
         addSpeed.onClick.RemoveAllListeners();
         sellTower.onClick.RemoveAllListeners();
         gameOverScreen.SetActive(true);
+        audioSource.PlayOneShot(gameOverAudio);
         if (GameObject.Find("DataManager") != null)
         {
             int highScore = dataManager.data.score;
@@ -283,4 +296,5 @@ public class GameManager : MonoBehaviour
             gameOverText.text = $"You opened from the Editor, you sneaky boy!\nScore: {score}";
         }
     }
+
 }

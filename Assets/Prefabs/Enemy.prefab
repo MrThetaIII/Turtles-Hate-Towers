@@ -116,6 +116,7 @@ MonoBehaviour:
   speed: 2.5
   distanceTraveled: 0
   isTargeted: 0
+  reachEndAudio: {fileID: 8300000, guid: f0970a0c66ccd4b65b6e65f125fdbcdd, type: 3}
 --- !u!54 &-1293063217326934957
 Rigidbody:
   m_ObjectHideFlags: 0

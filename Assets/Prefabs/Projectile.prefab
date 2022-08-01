@@ -114,6 +114,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 10
   target: {fileID: 0}
+  gameManager: {fileID: 0}
+  killedAudio: {fileID: 8300000, guid: 95fd0f6e4593b4e09b3d513839039d96, type: 3}
+  blueBoom: {fileID: 19811986, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
 --- !u!1001 &3195857012768200408
 PrefabInstance:
   m_ObjectHideFlags: 0

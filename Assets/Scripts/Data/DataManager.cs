@@ -17,8 +17,8 @@ public class DataManager : MonoBehaviour
     [Serializable]
     public class GameData
     {
-        public string nameHolder;
-        public int score;
+        public string nameHolder = "";
+        public int score = -1;
         public bool newGame;
         public bool volumeSitting;
     }

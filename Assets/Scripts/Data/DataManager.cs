@@ -14,11 +14,13 @@ public class DataManager : MonoBehaviour
     public string fileName;
     public int difficulty = 1;
     public string user;
+    [Serializable]
     public class GameData
     {
-        public string nameHolder = "";
-        public int score = -1;
-        public bool newGame = true;
+        public string nameHolder;
+        public int score;
+        public bool newGame;
+        public bool volumeSitting;
     }
     public GameData data = new GameData();
     /*
@@ -36,21 +38,13 @@ public class DataManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    /*
-    <>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<Initiate>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>
-    */
-    private void Start()
-    {
+
+
         fileName = "savedData.tht";
         GameData loadedData = LoadData(fileName);
-        if(loadedData != null)
+        if (loadedData != null)
         {
             this.data = loadedData;
-        }
-        else
-        {
-            Debug.Log("null Loaded");
         }
     }
     /*
@@ -58,16 +52,7 @@ public class DataManager : MonoBehaviour
     */
     private void OnApplicationQuit()
     {
-        if (this.data.score > -1)
-        {
-            this.data.newGame = false;
-            SaveData(data, fileName);
-            Debug.Log("Saved");
-        }
-        else
-        {
-            Debug.Log("Nothing To Save");
-        }
+        SaveData(data, fileName);
     }
     /*
     <>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<File Handler>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>-<>
